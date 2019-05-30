@@ -1,0 +1,70 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafe.jjdev.ajaxcrud.mapper.MemberMapper">
+<resultMap type="cafe.jjdev.ajaxcrud.vo.Member"
+  				id="MemberMap">
+  		<result column="id" property="id"/>
+  		<result column="pw" property="pw"/>
+  		<result column="name" property="name"/>
+  		<result column="age" property="age"/>
+  		<result column="gender" property="gender"/>
+  	</resultMap>
+	<!-- 페이징 -->
+  	<select id="pagingMemberList" parameterType="int" resultMap="MemberMap">
+  			SELECT 
+            id
+            ,pw
+            ,name
+            ,age
+            ,gender 
+     	    FROM member
+  			LIMIT #{startRow}, #{rowPerPage}
+  	</select>
+  	<select id="countMemberList" resultType="int">
+  			SELECT 
+  			COUNT(*) 
+     	    FROM member
+  		
+  	</select>
+    <select id="selectMemberList" resultType="cafe.jjdev.ajaxcrud.vo.Member">
+        SELECT 
+            id
+            ,pw
+            ,name
+            ,age
+            ,gender 
+        FROM member
+    </select>
+    
+    <insert id="insertMember" parameterType="cafe.jjdev.ajaxcrud.vo.Member">
+        INSERT INTO member(
+            id
+            ,pw
+            ,name
+            ,age
+            ,gender
+        ) VALUES (
+            #{id}
+            ,#{pw}
+            ,#{name}
+            ,#{age}
+            ,#{gender}
+        )
+    </insert>
+    
+    <delete id="deleteMember" parameterType="cafe.jjdev.ajaxcrud.vo.Member">
+        DELETE FROM 
+            member 
+        WHERE id=#{id}
+    </delete>
+    
+    <update id="updateMember" parameterType="cafe.jjdev.ajaxcrud.vo.Member">
+        UPDATE member 
+        SET pw=#{pw}
+            ,name=#{name}
+            ,age=#{age}
+            ,gender=#{gender}
+        WHERE id=#{id}
+    </update>
+</mapper>
